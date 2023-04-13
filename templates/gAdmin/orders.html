@@ -1,0 +1,319 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Ecommerce Admin Dashboard</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+    integrity="sha384-kLaHwufzn0+RHp8CfWZiKmvoL7xGqX3fY7VcMvz/Ow7Jh5q3QkpItk+qrKBZJ5P5" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 20px;
+    }
+
+    .sidebar {
+      background-color: #fff;
+      width: 300px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar ul li a {
+      display: block;
+      color: #444;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 10px 20px;
+      border-left: 3px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar ul li a.active,
+    .sidebar ul li a:hover {
+      background-color: #f0f0f0;
+      border-left-color: #2980b9;
+      color: #2980b9;
+    }
+
+    .content {
+      flex: 1;
+      padding: 15px;
+      background-color: #fff;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+      margin-left: 20px;
+    }
+
+    .content h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .content p {
+      font-size: 16px;
+      line-height: 1.5;
+      color: #666;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    th,
+    td {
+      text-align: center;
+      padding: 15px;
+      font-size: 16px;
+      color: #fff;
+      border: none;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    th {
+      background-color: #2196F3;
+    }
+
+    td.actions {
+      display: flex;
+      justify-content: center;
+    }
+
+    .edit,
+    .delete {
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      margin-right: 10px;
+    }
+
+    .edit {
+      background-color: #4CAF50;
+      border: 2px solid #4CAF50;
+    }
+
+    .edit:hover {
+      background-color: #fff;
+      color: #4CAF50;
+    }
+
+    .delete {
+      background-color: #f44336;
+      border: 2px solid #f44336;
+    }
+
+    .delete:hover {
+      background-color: #fff;
+      color: #f44336;
+    }
+
+    form {
+      background-color: #f7f7f7;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="file"] {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    table th,
+    table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+      color: black;
+    }
+
+    table th {
+      background-color: #eee;
+    }
+
+    .edit-button,
+    .delete-button,
+    .add-button {
+      background-color: #333;
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      cursor: pointer;
+      margin-right: 5px;
+      padding: 10px;
+    }
+
+    .edit-button:hover,
+    .delete-button:hover,
+    .add-button:hover {
+      background-color: #fff;
+      color: #333;
+      border: 1px solid #333;
+    }
+
+    .edit-button {
+      background-color: #4CAF50;
+    }
+
+    .delete-button {
+      background-color: #f44336;
+    }
+
+    .add-button {
+      background-color: #2196F3;
+      margin-top: 20px;
+      float: right;
+      clear: both;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>The Green </h1>
+  </header>
+  <div class="container">
+    <div class="row">
+      <div class="sidebar col-3 ">
+        <ul>
+          <li><a href="{% url 'dashboard'  %}" class="active"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
+          <li><a href="{% url 'category'  %}"><i class="fas fa-boxes"></i>Category</a></li>
+          <li><a href="{% url 'product'  %}"><i class="fas fa-cubes"></i>Products</a></li>
+          <li><a href="{% url 'customer'  %}"><i class="fas fa-users"></i>Customers</a></li>
+          <li><a href="{% url 'add_banner'  %}"><i class="fas fa-bullhorn"></i>Banner</a></li>
+          <li><a href="{% url 'order_view'  %}"><i class="fas fa-bullhorn"></i>Orders</a></li>
+          <li><a href="{% url 'coupon_managment'  %}"><i class="fas fa-bullhorn"></i>Coupon</a></li>
+          <li><a href="{% url 'logout_view'  %}"><i class="fas fa-headset"></i>Logout</a></li>
+
+        </ul>
+      </div>
+      <div class="content col-10 ">
+        <h2>Order Management</h2>
+        <center>
+          <form action="{% url 'order_view' %}" method="post">
+            {% csrf_token %}
+            <div class="container d-flex">
+              From : <input type="date" name="fromdate" value="{{fromdate}}" class="form-control "
+                style="width: 20%; margin-right: 7%; margin-left: 5%;">
+              To : <input type="date" name="todate" value="{{todate}}" class="form-control"
+                style="width: 20%; margin-right: 7%; margin-left: 5%; ">
+              <input type="submit" class="btn btn-primary">
+              <a class="btn btn-warning" style="margin-left: 10%;" href="{% url 'order_pdf' %}?fromdate={{fromdate}}&todate={{todate}}">PDF</a>
+            </div>
+          </form>
+
+        </center>
+        <div class="table-container">
+          <table id="myTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Order ID</th>
+                <th>Mobile</th>
+                <th>Zip</th>
+                <th>Total Bill</th>
+                <th>Pay Method</th>
+                <th>Order Date</th>
+                <th>Status</th>
+                <th>Edit Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for obj in order %}
+              <form action="pdelete/{{obj.id}}" method="post">
+                {% csrf_token %}
+                <tr>
+                  <td>{{obj.id}}</td>
+                  <td>{{obj.address.first_name}}</td>
+                  <td>{{obj.tracking_no}}</td>
+                  <td>{{obj.address.phone}}</td>
+                  <td>{{obj.address.pincode}}</td>
+                  <td>{{obj.total_price}}</td>
+                  <td>{{obj.payment_mode}}</td>
+                  <td>{{obj.created_at|date:"Y-m-d"}}</td>
+                  <td>{{obj.status}}</td>
+                  <td>
+                    <button class="btn btn-primary border border-none" type="button"
+                      onclick="location.href='product_view_detail/{{obj.id}}'">View Products</button>
+                  </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+  <Script>
+    let table = new DataTable('#myTable', {
+      "lengthMenu": [[4, 6, -1], [4, 6]]
+      
+    });
+  </Script>
+</body>
+
+</html>

@@ -1,0 +1,604 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from www.bootstrapdash.com/demo/vanta/template/demo/Emerald/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 02 Apr 2023 17:11:23 GMT -->
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Grocery Admin</title>
+  <!-- base:css -->
+  <link rel="stylesheet" href="{% static 'admin/themify-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'admin/vendor.bundle.base.css' %}">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{% static 'admin/style.css' %}">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="../../images/favicon.png" />
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+
+  <style>
+    .dataTables_filter input[type="search"] {
+      background-color: white;
+    }
+    .date-input {
+  width: 45%;
+  
+}
+.dataTables_filter {
+  display: none;
+}
+
+
+  </style>
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:partials/_sidebar.html -->
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-content-wrapper sidebar-offcanvas">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span class="menu-title"></span>
+            </a>
+          </li>
+          <li class="nav-item" ">
+            <a class=" nav-link" href="{% url 'dashboard'  %}">
+            <i class="ti-home menu-icon"></i>
+            <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'category'  %}">
+              <i class="ti-package menu-icon"></i>
+              <span class="menu-title">Category</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'product'  %}">
+              <i class="ti-package menu-icon"></i>
+              <span class="menu-title">Products</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'customer'  %}">
+              <i class="ti-package menu-icon"></i>
+              <span class="menu-title">Customers</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'add_banner'  %}">
+              <i class="ti-package menu-icon"></i>
+              <span class="menu-title">Banner</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'order_view'  %}">
+              <i class="ti-package menu-icon"></i>
+              <span class="menu-title">Orders</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'coupon_managment'  %}">
+              <i class="ti-package menu-icon"></i>
+              <span class="menu-title">Coupon</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout_view'  %}">
+              <i class="ti-package menu-icon"></i>
+              <span class="menu-title">Logout</span>
+            </a>
+          </li>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_settings-panel.html -->
+      <!-- partial -->
+
+      <!-- partial -->
+      <div class="main-panel mt-5 " >
+        <div class="content-wrapper">
+          <div class="row mb-2">
+            <div class="col-12 col-sm-6 col-xl-3 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                      <h4>Orders</h4>
+                      <h4 class="text-white mt-3">{{order_count}}</h4>
+                    </div>
+                    <div class="icon-box icon-box-bg-image-warning">
+                      <i class="ti-announcement gradient-card-icon"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                      <h4>Sales</h4>
+                      <h4 class="text-white mt-3">₹{{total_sales}}</h4>
+                    </div>
+                    <div class="icon-box icon-box-bg-image-info">
+                      <i class="ti-agenda gradient-card-icon"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                      <h4>Revenue</h4>
+                      <h4 class="text-white mt-3">₹{{total_rev}}</h4>
+                    </div>
+                    <div class="icon-box icon-box-bg-image-danger">
+                      <i class="ti-pie-chart gradient-card-icon"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                      <h4>User</h4>
+                      <h4 class="text-white mt-3">{{user_count}}</h4>
+                    </div>
+                    <div class="icon-box icon-box-bg-image-success">
+                      <i class="ti-briefcase gradient-card-icon"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ----------------------------------------------chart   start   --------------------------------- -->
+          <div class="row" >
+            <div class=" mt-sm-0 mb-2 mx-3" >
+              <form action="{% url 'dashboard' %}" method="post" class="nav-tabs-success orders-chart-tab" >
+                {% csrf_token %}
+                <div class="d-flex">
+                 <input type="date" name="fromdateOfpayment" value="{{fromdateOfpayment}}" class="form-control " style="width: 30%; height: auto;">
+                   <input type="date" name="todateOfpayment" value="{{todateOfpayment}}" class="form-control" style="width: 30%; height: auto; margin-left: 9px;">
+                  <input type="submit" class="btn btn-primary " style="width: auto; height: auto; margin-left: 9px;">
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8 grid-margin">
+              <div class="card">
+                <div class="card-body mb-5">
+                  <div class="d-md-flex justify-content-between align-items-center ">
+                    <div>
+                      <h5 class="card-title mb-2 mb-md-3">Payment</h5>
+                      </h6>
+                    </div>
+                  </div>
+                  <div class="chart-container mt-4">
+                    <canvas id="pie-chart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                    <div class="phppot-container">
+                      <h5 class="card-title mb-2 mb-md-3">Sales by Category</h5>
+                      <div>
+                        <canvas id="pie-chart2"></canvas>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ----------------------------------------------chart   end   --------------------------------- -->
+          <!-- ----------------------------------------------chart   start   --------------------------------- -->
+          <div class="row">
+            <div class="col-4 grid-margin">
+              <div class="card">
+                <div class="card-body mb-5">
+                  <div class="d-md-flex justify-content-between align-items-center ">
+                    <div>
+                      <h5 class="card-title mb-2 mb-md-3">Sales by products</h5>
+                      </h6>
+                    </div>
+                  </div>
+                  <div class="chart-container mt-4">
+                    <canvas id="pie-chart3"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-8 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                    <div class="phppot-container">
+                      <h5 class="card-title mb-2 mb-md-3">Sales by month</h5>
+                      <div>
+                        <canvas id="pie-chart4"></canvas>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ----------------------------------------------chart   end   --------------------------------- -->
+          <div class="row">
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <div class="table-responsive dashboard-table-info">
+                    <table class="table center-aligned-table" id="myTable" >
+                      <thead>
+                        <tr>
+                          <th class="border-bottom-0">Date</th>
+                          <th class="border-bottom-0">Product</th>
+                          <th class="border-bottom-0">Category</th>
+                          <th class="border-bottom-0">No of Units</th>
+                          <th class="border-bottom-0">Price</th>
+                          <th class="border-bottom-0">Amount</th>
+                          
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for item in orderitem %}
+                        <tr>
+                          <td>{{item.order.created_at|date:"Y-m-d"}}</td>
+                          <td>{{item.product.name}}</td>
+                          <td>{{item.product.Category}}</td>
+                          <td>{{item.quantity}}</td>
+                          <td>{{item.price}}</td>
+                          <td>{{item.total}}</td>
+                          {% comment %} <td><label class="badge badge-outline-success">Approved</label></td> {% endcomment %}
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                      <footer>
+                        <td colspan="5" style="text-align: right;"><b>Total:</b></td>
+                        <td id="totalAmount"></td>
+                      </footer>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> 
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+  <!-- base:js -->
+  <script src="../../vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <script src="../../vendors/flot/jquery.flot.js"></script>
+  <script src="../../vendors/flot/jquery.flot.resize.js"></script>
+  <script src="../../vendors/chart.js/Chart.min.js"></script>
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="../../js/off-canvas.js"></script>
+  <script src="../../js/hoverable-collapse.js"></script>
+  <script src="../../js/template.js"></script>
+  <script src="../../js/settings.js"></script>
+  <script src="../../js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- plugin js for this page -->
+  <!-- End plugin js for this page -->
+  <!-- Custom js for this page-->
+  <script src="../../js/dashboard.js"></script>
+  <!-- End custom js for this page-->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.0.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/vfs_fonts.js"></script>
+  
+
+
+  <Script>
+   let total = 0; // declare the variable outside of the function
+
+let table = new DataTable('#myTable', {
+  "lengthMenu": [[4, 6, -1], [4, 6]],
+  ordering: false,
+  dom: 'Bfrtip',
+  buttons: [{      
+          extend: 'pdfHtml5',
+          title: 'Sales Report',      
+          pageSize: 'A4',      
+        customize: function(doc) {        
+          doc.styles.tableHeader =  {fontSize: 12,bold: true,color: 'white',fillColor: '#4CAF50'};// change this to the desired background coloralignment: 'center'}     
+          doc.content[1].table.widths = ['*', '*', '*', '*', '*', '*'];
+          doc.content[1].layout = {
+          hLineWidth: function(i, node) {
+            return (i === 0 || i === node.table.body.length) ? 0 : 1;
+          },
+          vLineWidth: function(i, node) {
+            return 0;
+          },
+          hLineColor: function(i, node) {
+            return (i === 0 || i === node.table.body.length) ? 'white' : 'gray';
+          },
+          paddingLeft: function(i, node) {
+            return 10;
+          },
+          paddingRight: function(i, node) {
+            return 10;
+          },
+          paddingTop: function(i, node) {
+            return 5;
+          },
+          paddingBottom: function(i, node) {
+            return 5;
+          },
+        };
+        doc.content[1].columnStyles = {
+          0: {
+            width: 'auto',
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingTop: 5,
+            paddingBottom: 5,
+          },
+          1: {
+            width: 'auto',
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingTop: 5,
+            paddingBottom: 5,
+          },
+          2: {
+            width: 'auto',
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingTop: 5,
+            paddingBottom: 5,
+          },
+          3: {
+            width: 'auto',
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingTop: 5,
+            paddingBottom: 5,
+          },
+          4: {
+            width: 'auto',
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingTop: 5,
+            paddingBottom: 5,
+          },
+          5: {
+            width: 'auto',
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingTop: 5,
+            paddingBottom: 5,
+          },
+        };
+        
+        // Add the total amount to the PDF
+        doc.content[1].table.body.push([{ text: 'Total Amount', style:{fontSize: 10,bold: true,color: 'white',fillColor: '#4CAF50'} }, { text: '$' + total.toFixed(2), colSpan: 5, alignment: 'right', style: 'tableHeader' }, {}, {}, {}, {}]);
+      }
+    },
+    {
+      extend: 'excelHtml5',
+      title: 'Your Excel Title',
+      exportOptions: {
+        columns: [0, 1, 2, 3, 4, 5]
+      }
+    }
+  ],
+  initComplete: function() {
+    let api = this.api();
+
+    // Add the total amount
+    total = api.column(5).data().reduce(function(acc, val) {
+      return acc + parseFloat(val);
+    }, 0);
+
+    $('#totalAmount').text('$' + total.toFixed(2));
+
+    // Add the date range filter inputs
+    $('<div class="row mb-2"><div class="col-md-2"><label for="from">From:</label><input type="date" id="from" class="form-control" placeholder="YYYY-MM-DD"></div><div class="col-md-2"><label for="to">To:</label><input type="date" id="to" class="form-control" placeholder="YYYY-MM-DD"></div></div>').insertBefore('#myTable_wrapper');
+
+    // Add the event listener to the date range filter inputs
+    
+// Add the event listener to the date range filter inputs
+    $('#from, #to').change(function() {
+      let from = $('#from').val();
+      let to = $('#to').val();
+      table.draw();
+
+      // Recalculate the total amount
+      let total = api.column(5, { search: 'applied' }).data().reduce(function(acc, val) {
+        return acc + parseFloat(val);
+      }, 0);
+      $('#totalAmount').text('$' + total.toFixed(2));
+    });
+
+  }
+});
+
+// Add the custom filtering function
+$.fn.dataTable.ext.search.push(
+  function(settings, data, dataIndex) {
+    let from = $('#from').val();
+    let to = $('#to').val();
+    let date = data[0]; // Assumes the date is in the first column of the table
+
+    if (from === '' && to === '') {
+      return true;
+    }
+
+    if (from === '' && date <= to) {
+      return true;
+    }
+
+    if (to === '' && date >= from) {
+      return true;
+    }
+
+    if (date >= from && date <= to) {
+      return true;
+    }
+
+    return false;
+  }
+);
+
+
+    
+    
+    
+
+    new Chart(document.getElementById("pie-chart"), {
+      type: 'line',
+      data: {
+        labels: {{ labels| safe}},
+      datasets: [{
+        // backgroundColor : [ "#51EAEA", "#FCDDB0",
+        //     "#FF9D76", "#FB3569", "#82CD47" ],
+        data: {{ data| safe}}
+        }]
+      },
+      options: {
+      title: {
+        display: true,
+        text: 'Chart JS Pie Chart Example'
+      }
+    }
+    });
+
+    new Chart(document.getElementById("pie-chart2"), {
+      type: 'pie',
+      data: {
+        labels: {{ labels1| safe}},
+      datasets: [{
+        // backgroundColor : [ "#51EAEA", "#FCDDB0",
+        //     "#FF9D76", "#FB3569", "#82CD47" ],
+        data: {{ data1| safe}}
+        }]
+      },
+      options: {
+      title: {
+        display: true,
+        text: 'Chart JS Pie Chart Example'
+      }
+    }
+    });
+
+    new Chart(document.getElementById("pie-chart3"), {
+      type: 'pie',
+      data: {
+        labels: {{ labels3|safe }},
+        datasets: [{
+          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+          data: {{ data3|safe }}
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Sales by Product Category'
+        },
+        legend: {
+          display: true,
+          position: 'right',
+          labels: {
+            fontColor: 'black',
+            fontSize: 14,
+            fontFamily: 'Helvetica'
+          }
+        },
+        animation: {
+          animateScale: true
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        tooltips: {
+          mode: 'nearest',
+          intersect: false,
+          bodyFontSize: 14,
+          titleFontSize: 16,
+          titleFontFamily: 'Helvetica',
+          bodyFontFamily: 'Helvetica',
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          titleFontColor: 'white',
+          bodyFontColor: 'white'
+        }
+      }
+    });
+    
+    new Chart(document.getElementById("pie-chart4"), {
+    type: 'bar',
+    data: {
+        labels: {{ labels4|safe }},
+        datasets: [{
+            data: {{ data4|safe }}
+        }]
+    },
+    options: {
+        title: {
+            display: true,
+            text: 'Number of Orders by Month'
+        }
+    }
+});
+
+
+
+  </Script>
+
+</body>
+
+
+<!-- Mirrored from www.bootstrapdash.com/demo/vanta/template/demo/Emerald/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 02 Apr 2023 17:11:49 GMT -->
+
+</html>

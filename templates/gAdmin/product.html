@@ -1,0 +1,351 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Ecommerce Admin Dashboard</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+  integrity="sha384-kLaHwufzn0+RHp8CfWZiKmvoL7xGqX3fY7VcMvz/Ow7Jh5q3QkpItk+qrKBZJ5P5" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 20px;
+    }
+
+    .sidebar {
+      background-color: #fff;
+      width: 300px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar ul li a {
+      display: block;
+      color: #444;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 10px 20px;
+      border-left: 3px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar ul li a.active,
+    .sidebar ul li a:hover {
+      background-color: #f0f0f0;
+      border-left-color: #2980b9;
+      color: #2980b9;
+    }
+
+    .content {
+      flex: 1;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+      margin-left: 20px;
+    }
+
+    .content h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .content p {
+      font-size: 16px;
+      line-height: 1.5;
+      color: #666;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    th,
+    td {
+      text-align: center;
+      padding: 15px;
+      font-size: 16px;
+      color: #fff;
+      border: none;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    th {
+      background-color: #2196F3;
+    }
+
+    td.actions {
+      display: flex;
+      justify-content: center;
+    }
+
+    .edit,
+    .delete {
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      margin-right: 10px;
+    }
+
+    .edit {
+      background-color: #4CAF50;
+      border: 2px solid #4CAF50;
+    }
+
+    .edit:hover {
+      background-color: #fff;
+      color: #4CAF50;
+    }
+
+    .delete {
+      background-color: #f44336;
+      border: 2px solid #f44336;
+    }
+
+    .delete:hover {
+      background-color: #fff;
+      color: #f44336;
+    }
+
+    form {
+      background-color: #f7f7f7;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="file"] {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    input[type="submit"] {
+      background-color: #333;
+      color: #f34f;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    table th,
+    table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+      color: black;
+    }
+
+    table th {
+      background-color: #eee;
+    }
+
+    .edit-button,
+    .delete-button,
+    .add-button {
+      background-color: #333;
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      cursor: pointer;
+      margin-right: 5px;
+      padding: 10px;
+    }
+
+    .edit-button:hover,
+    .delete-button:hover,
+    .add-button:hover {
+      background-color: #fff;
+      color: #333;
+      border: 1px solid #333;
+    }
+
+    /* .edit-button {
+      background-color: #4CAF50;
+    }
+
+    .delete-button {
+      background-color: #f44336;
+    } */
+
+    .add-button {
+      background-color: #2196F3;
+      margin-top: 20px;
+      float: right;
+      clear: both;
+    }
+  </style>
+    <script type="text/javascript">
+      const searchInput = document.querySelector('#search-input');
+      const productListss = document.querySelector('#product-list');
+  
+      searchInput.addEventListener('keyup', function (event) {
+        const searchQuery = event.target.value.toLowerCase();
+        const products = productListss.querySelectorAll('.product');
+  
+        products.forEach(function (product) {
+          const productName = product.querySelector('.product-title').textContent.toLowerCase();
+  
+          if (productName.includes(searchQuery)) {
+            product.style.display = 'block';
+          } else {
+            product.style.display = 'none';
+          }
+        });
+      });
+    </script>
+</head>
+
+<body>
+  <header>
+    <h1>The Green </h1>
+  </header>
+  <div class="container">
+    <nav class="sidebar">
+      <ul>
+        <li><a href="{% url 'dashboard'  %}" class="active"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
+        <li><a href="{% url 'category'  %}"><i class="fas fa-boxes"></i>Category</a></li>
+        <li><a href="{% url 'product'  %}"><i class="fas fa-cubes"></i>Products</a></li>
+        <li><a href="{% url 'customer'  %}"><i class="fas fa-users"></i>Customers</a></li>
+        <li><a href="{% url 'add_banner'  %}"><i class="fas fa-bullhorn"></i>Banner</a></li>
+        <li><a href="{% url 'order_view'  %}"><i class="fas fa-bullhorn"></i>Orders</a></li>
+        <li><a href="{% url 'coupon_managment'  %}"><i class="fas fa-bullhorn"></i>Coupon</a></li>
+        <li><a href="{% url 'logout_view'  %}"><i class="fas fa-headset"></i>Logout</a></li>
+
+      </ul>
+    </nav>
+    <main class="content">
+      <section>
+       <h2>Product Management</h2>
+        <div class="table-container">
+          <table >
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Vendor</th>
+                <th>Quantity</th>
+                <th>Original price</th>
+                <th>Selling Price</th>
+                <th>Image</th>
+                <th>Action</th>
+                <th>Trending</th>
+              </tr>
+            </thead>
+            <tbody id="product-list">
+              {% for obj in products %}
+              <tr class="product">
+                <form action="pdelete/{{obj.id}}" method="post">
+                  {% csrf_token %}
+                  <td>{{obj.id}}</td>
+                  <td class="product-title">{{obj.name}}</td>
+                  <td>{{obj.Category.name}}</td>
+                  <td>{{obj.vendor}}</td>
+                  <td>{{obj.quantity}}</td>
+                  <td>{{obj.original_price}}</td>
+                  <td>{{obj.selling_price}}</td>
+                  <td><img src="{{obj.product_image.url}}" alt="example image" width="70" height="50"></td>
+                  <td>
+                    <button class=" " style="background: #4CAF50; padding: 10%; border: none; color: #ddd;" type="button" onclick="location.href='productUpdate/{{obj.id}}'">Edit</button>
+                    <button class="" style="background: #ff0000; padding: 4%; border: none; color: #ddd;">Delete</button>
+                  </td>
+                  <td>
+                    {% if obj.trending %}
+                    <button class="" style="background: #4CAF50; padding: 4%; border: none; color: #ddd;" type="button" onclick="location.href='not_trending/{{obj.id}}'">Trending</button>
+                    {% else %}
+                    <button class=""  style="background: #ff0000; padding: 4%; border: none; color: #ddd;" type="button" onclick="location.href='Trending/{{obj.id}}'">Not Trending</button>
+                    {% endif %}
+                  </td>
+                </form>
+              </tr>
+              {% endfor %}
+            </tbody>
+            
+          </table>
+          {% if category %}
+          <button class="add-button" type="button" onclick="location.href='{% url 'pcreate'  %}'">Add Product</button>
+          {% endif%}
+        </div> 
+
+        <div class="container">
+          <div class="admin-product-form-container">
+             <form action="post" enctype="multipart/form-data">
+              <h3>add new product</h3>
+              <input type="text" placeholder="Product name" name="product_name" class="box">
+              <input type="number" placeholder="Product price" name="product_price" class="box">
+              <input type="file" placeholder="Product image" name="product_image" class="box">
+              <input type="submit" name="add_product" value="add product">
+             </form>
+          </div>
+        </div>
+    </main>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+  <Script>
+    let table = new DataTable('#myTable', {
+      "lengthMenu": [[4, 6, -1], [4, 6]]
+    });
+  </Script>
+</body>
+
+</html>
+

@@ -1,0 +1,147 @@
+
+{% extends "Pages/base.html" %}
+{% load static %}
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+  .cart-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  background-color: #f5f5f5;
+  border-radius: 0.25rem;
+  border: none;
+  color: #333;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.cart-icon {
+  margin-right: 0.5rem;
+}
+
+.cart-count {
+  display: inline-block;
+  margin-left: 0.25rem;
+  padding: 0.25rem;
+  background-color: #333;
+  color: #fff;
+  font-size: 0.75rem;
+  border-radius: 50%;
+}
+
+</style>
+
+  <div class="container my-3" id="langingpage">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h6>My Orders</h6>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordereds">
+                        <thead>
+                            <tr>
+                                <th>Order Date</th>
+                                <th>Tracking No.</th>
+                                <th>Total Price</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in orders %}
+                            <tr>
+                                <td>{{item.created_at|date:"Y-m-d"}}</td>
+                                <td>{{item.tracking_no}}</td>
+                                <td>{{item.total_price}}</td>
+                                <td>{{item.status}}</td>
+                                <td>
+                                    <a href="{% url 'orderview' item.tracking_no %}" class="btn btn-danger">View</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      $('.increment-btn').click(function(e) {
+        e.preventDefault();
+        var dec_value = $(this).closest('.product_data').find('.qty-input').val();
+        var value = parseInt(dec_value, 10);
+        value = isNaN(value) ? 0 : value;
+        if (value < 10) {
+          value++;
+          $(this).closest('.product_data').find('.qty-input').val(value);
+        }
+      });
+    
+      $('.decrement-btn').click(function(e) {
+        e.preventDefault();
+        var dec_value = $(this).closest('.product_data').find('.qty-input').val();
+        var value = parseInt(dec_value, 10);
+        value = isNaN(value) ? 0 : value;
+        if (value > 1) {
+          value--;
+          $(this).closest('.product_data').find('.qty-input').val(value);
+        }
+      });
+    
+      $('.changequantity').click(function(e) {
+        e.preventDefault();
+        var product_id = $(this).closest('.product_data').find('.prod_id').val();
+        var product_qty = $(this).closest('.product_data').find('.qty-input').val();
+        var token = $('input[name=csrfmiddlewaretoken]').val();
+       
+        $.ajax({
+          url: "/update_cart",
+          method: "POST",
+          dataType: "json",
+          data: {
+            'product_id': product_id,
+            'product_qty': product_qty,
+            'csrfmiddlewaretoken': token
+          },
+          success: function(response) {
+            // Handle successful response from server
+            console.log(response)
+                
+          },
+          error: function(xhr, status, error) {
+            // Handle error response from server
+          }
+        });
+      });
+    
+      $(document).on('click','.delete-cart-item',function (e) {
+        e.preventDefault();
+        var product_id = $(this).closest('.product_data').find('.prod_id').val();
+        var token = $('input[name=csrfmiddlewaretoken]').val();
+    
+        $.ajax({
+          method: "POST",
+          url: "/delete_cart_item",
+          data: {
+            'product_id':product_id,
+            csrfmiddlewaretoken:token
+          },
+          
+          success: function (response) {
+            $('.carddata').load(location.href+ " .carddata");
+          }
+        });
+      });
+      
+    });
+    </script>
+    {% endblock content %}
+  
+

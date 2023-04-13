@@ -1,0 +1,38 @@
+
+
+body{
+  height: 100vh;
+  margin: 0;
+  width: 100%;
+
+}
+.vdd{
+  align-items: center;
+  justify-content: center;
+}
+#error-page{
+  position: absolute;
+  top: 10%;
+  left: 15%;
+  right: 15%;
+  bottom: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+#eeew{
+    background-color: blue;
+    background-color: blue;
+    color: #fff;
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 14px;
+    text-decoration: none;
+}
+h1{
+  color: blueviolet;
+  font-weight: 900;
+  margin-left: 40%;
+}

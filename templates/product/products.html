@@ -1,0 +1,113 @@
+
+{% extends "Pages/base.html" %}
+{% load static %}
+{% block content %}
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <style>
+    .old_price {
+      font-weight: bold;
+      color: red;
+    }
+
+    .new_price {
+      font-weight: bold;
+      background-color: green;
+      color: white;
+      padding: 2px;
+      border-radius: 5px;
+    }
+
+    .cart-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      background-color: #f5f5f5;
+      border-radius: 0.25rem;
+      border: none;
+      color: #333;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .cart-icon {
+      margin-right: 0.5rem;
+    }
+
+    .cart-count {
+      display: inline-block;
+      margin-left: 0.25rem;
+      padding: 0.25rem;
+      background-color: #333;
+      color: #fff;
+      font-size: 0.75rem;
+      border-radius: 50%;
+    }
+  </style>
+  <!-- ------------------------------------------------Top ------------------------------------------------------------------- -->
+  <!--------------------------------------------------Category Start---------------------------------------------------------- -->
+  <div class="container my-3" id="langingpage">
+
+    <div id="product-list" class="row ">
+      {% for item in products %}
+      <div class="col-md-4 col-lg-3 product">
+        <div class="card my-3">
+          <img src="{{item.product_image.url}}" class="card-image-top" alt="product image">
+          <a href="{% url 'ProductDetails' category item.name %}">
+            <div class="card-body">
+              <h5 class="card-title text-primary text-dark">{{item.name}}</h5>
+              <p class="card-text">
+                <span class="float-start old_price"><s>Rs.{{item.original_price}}</s></span>
+                <span class="float-end new_price">Rs.{{item.selling_price}}</span>
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
+    var availableTags = [];
+
+    $.ajax({
+      method: "GET",
+      url: "/product_list",
+      success: function (response) {
+        console.log(response)
+        startAutocomplete(response)
+      }
+    });
+    function startAutocomplete(availableTags) {
+      $("#search-input").autocomplete({
+        source: availableTags
+      });
+    }
+  </script>
+
+  <script>
+    const searchInput = document.querySelector('#search-input');
+    const productListss = document.querySelector('#product-list');
+
+    searchInput.addEventListener('keyup', function (event) {
+      const searchQuery = event.target.value.toLowerCase();
+      const products = productListss.querySelectorAll('.product');
+
+      products.forEach(function (product) {
+        const productName = product.querySelector('.card-title').textContent.toLowerCase();
+
+        if (productName.includes(searchQuery)) {
+          product.style.display = 'block';
+        } else {
+          product.style.display = 'none';
+        }
+      });
+    });
+  </script>
+
+{% endblock content %}

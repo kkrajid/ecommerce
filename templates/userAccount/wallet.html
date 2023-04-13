@@ -1,0 +1,54 @@
+{% extends "Pages/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container mt-5" id="langingpage">
+  <div class="row">
+    <div class="col-10">
+      <div class="table-responsive">
+        <table class="table " id="myTable">
+          <thead>
+            <tr>
+              <th scope="col">Transaction Date</th>
+              <th scope="col">Status</th>
+              <th scope="col">Amount</th>
+     
+            </tr>
+          </thead>
+          <tbody>      
+              {% for item in user_wallet%}
+              <tr>
+                <td>{{item.created_at}}</td>
+                <td>{{item.mode}}</td>
+                <td>{{item.amount}}</td>
+              </tr>
+          {% endfor %} 
+          </tbody>
+        </table>
+      </div>
+    </div>
+      <aside class="col-lg-2 ">
+        <div class="card">
+          <div class="card-body">
+           
+            <dl class="dlist-align">
+              <dt>Wallet Balance:</dt>
+              <dd class="text-right text-dark b ml-3 "><strong class="ored text-danger"> Rs.{{total_amount}}</strong></dd>
+            </dl>
+            
+          </div>
+        </div>
+      </aside>
+  </div>
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+<Script>
+  let table = new DataTable('#myTable', {
+  });
+</Script>
+
+{% endblock content %}

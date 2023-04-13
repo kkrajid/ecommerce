@@ -1,0 +1,551 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from askbootstrap.com/preview/vegishop/home.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 10 Feb 2023 05:39:41 GMT -->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" type="image/png" href="{% static 'img/logo.png' %}">
+<title>The Green</title>
+
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/slick/slick.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/slick/slick-theme.min.css' %}" />
+
+<link href="{% static 'vendor/icons/icofont.min.css' %}" rel="stylesheet" type="text/css">
+
+<link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+<link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+<link href="{% static 'vendor/sidebar/demo.css' %}" rel="stylesheet">
+<style>
+    .cart-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    background-color: #f5f5f5;
+    border-radius: 0.25rem;
+    border: none;
+    color: #333;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .cart-icon {
+    margin-right: 0.5rem;
+  }
+  
+  .cart-count {
+    display: inline-block;
+    margin-left: 0.25rem;
+    padding: 0.25rem;
+    background-color: #333;
+    color: #fff;
+    font-size: 0.75rem;
+    border-radius: 50%;
+  }
+  
+  </style>
+</head>
+<body class="fixed-bottom-padding">
+    <div class="top-bar">
+    <div class="container">
+    <div class="row">
+    </div>
+    </div>
+    </div>
+    <div class="border-bottom p-3 d-none mobile-nav">
+    <div class="title d-flex align-items-center">
+    <a href="{% url 'Home' %}" class="text-decoration-none text-dark d-flex align-items-center">
+    <img class="osahan-logo mr-2" src="{% static 'img/logo.png' %}">
+    <h4 class="font-weight-bold text-success m-0">Grocery</h4>
+    </a>
+    <p class="ml-auto m-0">
+    <a href="listing.html" class="text-decoration-none bg-white p-1 rounded shadow-sm d-flex align-items-center">
+    <i class="text-dark icofont-sale-discount"></i>
+    <span class="badge badge-danger p-1 ml-1 small">50%</span>
+    </a>
+    </p>
+    <a class="toggle ml-3" href="#"><i class="icofont-navigation-menu"></i></a>
+    </div>
+    <a href="search.html" class="text-decoration-none">
+    <div class="input-group mt-3 rounded shadow-sm overflow-hidden bg-white">
+    <div class="input-group-prepend">
+    <button class="border-0 btn btn-outline-secondary text-success bg-white"><i class="icofont-search"></i></button>
+    </div>
+    <input type="text" class="shadow-none border-0 form-control pl-0" placeholder="Search for Products.." aria-label="" aria-describedby="basic-addon1">
+    </div>
+    </a>
+    </div>
+    
+    <div class="theme-switch-wrapper">
+    <label class="theme-switch" for="checkbox">
+    <input type="checkbox" id="checkbox" />
+    <div class="slider round"></div>
+    <i class="icofont-moon"></i>
+    </label>
+    <em>Enable Dark Mode!</em>
+    </div>
+    
+    <div class="bg-white shadow-sm osahan-main-nav">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white osahan-header py-0 container">
+    <a class="navbar-brand mr-0" href="{% url 'Home' %}"><img class="img-fluid logo-img " src="{% static 'img/logo.png' %}"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+     <div class="ml-3 d-flex align-items-center">
+    <div class="dropdown mr-3">
+    <a class="text-dark dropdown-toggle d-flex align-items-center osahan-location-drop" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <div><i class="icofont-location-pin d-flex align-items-center bg-light rounded-pill p-2 icofont-size border shadow-sm mr-2"></i></div>
+    <div>
+    <p class="text-muted mb-0 small">Select Location</p>
+    Maharashtra India...
+    </div>
+    </a>
+    <div class="dropdown-menu osahan-select-loaction p-3" aria-labelledby="navbarDropdown">
+    <span>Select your city to start shopping</span>
+    <form class="form-inline my-2">
+    
+    <div class="input-group p-0 col-lg-12">
+    <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupUsername2" placeholder="Search Location">
+    <div class="input-group-prepend">
+    <div class="btn btn-success rounded-right btn-sm"><i class="icofont-location-arrow"></i> Detect</div>
+    </div>
+    </div>
+    </form>
+    <div class="city pt-2">
+    <h6>Top Citys</h6>
+    <p class="border-bottom m-0 py-1"><a href="#" class="text-dark">Banglore</a></p>
+    <p class="border-bottom m-0 py-1"><a href="#" class="text-dark">Noida</a></p>
+    <p class="border-bottom m-0 py-1"><a href="#" class="text-dark">Delhi</a></p>
+    <p class="m-0 py-1"><a href="#" class="text-dark">Mumbai</a></p>
+    </div>
+    </div>
+    </div>
+    
+    <div class="input-group mr-sm-2 col-lg-12">
+    <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Search for Products..">
+    <div class="input-group-prepend">
+    <div class="btn btn-success rounded-right"><i class="icofont-search"></i></div>
+    </div>
+    </div>
+    </div>
+    <div class="ml-auto d-flex align-items-center">
+    The Green
+    <div class="dropdown mr-3">
+        <a href="#" class="dropdown-toggle text-dark" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{name.first_name}}</a>
+        <div class="dropdown-menu dropdown-menu-right top-profile-drop" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="{% url 'Myaccounts'%}">My account</a>
+            <a class="dropdown-item" href="{% url 'my_orders'%}">My Order</a>
+            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+        </div>
+     </div>
+    </div>
+    <a href="{% url 'Cart_page' %}" class="cart-button">
+      <i class="icofont-shopping-cart"></i>
+      <span class="cart-text">Cart</span>
+      <span class="cart-count">{{count}}</span>
+    </a>
+    </nav>
+    
+    
+    
+    
+    <div class="bg-color-head">
+    <div class="container menu-bar d-flex align-items-center">
+    <ul class="list-unstyled form-inline mb-0">
+    <li class="nav-item active">
+    <a class="nav-link text-white pl-0" href="{% url 'Home' %}">Home <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item dropdown">
+    <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    All categories
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    {% comment %} -----------------------start categories____________________ {% endcomment %}
+    {% for item in category%}
+    <a class="dropdown-item" href="{% url 'Categories' item.name %}">{{item.name}}</a>
+    {% endfor %}
+    {% comment %} -----------------------end categories____________________ {% endcomment %}
+    </div>
+    </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+    
+
+
+
+
+
+
+<section class="py-4 osahan-main-body">
+<div class="container">
+<div class="row">
+<div class="col-lg-12">
+<div class="osahan-home-page">
+<div class="osahan-body">
+<!-- ----------------------------------------top ---------------------------------------------------------- -->
+<div class="pt-3 pb-2 rounded osahan-categories">
+<div class="d-flex align-items-center mb-2">
+<h5 class="m-0 text-white">What do you looking for?</h5>
+</div>
+
+
+<div class="categories-slider">
+{% for item in category %}
+<!-- ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd -->
+<div class="col-c">
+<div class="bg-white shadow-sm rounded text-center my-2 px-2 py-3 c-it">
+<a href="{% url 'Categories' item.name %}">
+    {% if item.image %}
+<img src="{{item.image.url}}" class="img-fluid px-2 mx-auto">
+{% endif %}
+<p class="m-0 pt-2 text-muted text-center">{{item.name}}</p>
+ </a>
+</div>
+</div>
+<!-- ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd -->
+{% endfor %}
+
+
+
+</div>
+</div>
+<!-- ----------------------------------------top ---------------------------------------------------------- -->
+<div class="py-3 osahan-promos">
+<div class="d-flex align-items-center mb-3">
+<h5 class="m-0">Promos for you</h5>
+<a href="promos.html" class="ml-auto btn btn-outline-success btn-sm">See more</a>
+</div>
+<!-- ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd -->
+
+<div class="promo-slider pb-0 mb-0">
+    {% for item in banner %}
+<div class="osahan-slider-item mx-2">
+<a href="promo_details.html"><img src="{{item.banner_image.url}}" class="img-fluid mx-auto rounded" alt="Responsive image"></a>
+</div>
+{% endfor%}
+</div>
+
+<!-- banner pageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee -->
+</div>
+
+<div class="title d-flex align-items-center py-3">
+<h5 class="m-0">Pick's Today</h5>
+<a class="ml-auto btn btn-outline-success btn-sm" href="picks_today.html">See more</a>
+</div>
+<!-- ---------------------------------------pick  today   ----------------------------------------------------------- -->
+
+<div class="pick_today">
+    <div class="row">
+        {% for item in products %}
+        <div class="col-6 col-md-3 mb-3">
+            <div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
+             <div class="list-card-image">
+            <a href="{% url 'ProductDetails' item.Category.name item.name %}" class="text-dark">
+            <div class="member-plan position-absolute"><span class="badge m-3 badge-danger">{{item.productOffers}}</span></div>
+            <div class="p-3">
+            <img src="{{item.product_image.url}}" class="img-fluid item-img w-100 mb-3">
+            <h6>{{item.name}}</h6>
+            <div class="d-flex align-items-center">
+            <h6 class="price m-0 text-success">{{item.prdoductPrice}}</h6>
+            <a data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1" class="btn btn-success btn-sm ml-auto">+</a>
+            <div class="collapse qty_show" id="collapseExample1">
+            <div>
+            <span class="ml-auto" href="#">
+            <form id='myform' class="cart-items-number d-flex" method='POST' action='#'>
+            <input type='button' value='-' class='qtyminus btn btn-success btn-sm' field='quantity' />
+            <input type='text' name='quantity' value='1' class='qty form-control' />
+            <input type='button' value='+' class='qtyplus btn btn-success btn-sm' field='quantity' />
+            </form>
+            </span>
+            </div>
+            </div>
+            </div>
+            </div>
+            </a>
+            </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    </div>
+
+<!-- ---------------------------------------pick  today   ----------------------------------------------------------- -->
+{% comment %} <div class="title d-flex align-items-center py-3">
+<h5 class="m-0">Recommend for You</h5>
+<a class="ml-auto btn btn-outline-success btn-sm" href="recommend.html">26 more</a>
+</div>
+
+<div class="osahan-recommend">
+<div class="row">
+<div class="col-12 col-md-4 mb-3">
+<a href="product_details.html" class="text-dark text-decoration-none">
+<div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
+<div class="recommend-slider2 rounded mb-0">
+<div class="osahan-slider-item m-2 rounded">
+<img src="{% static 'img/recommend/r1.jpg' %}" class="img-fluid mx-auto rounded shadow-sm" alt="Responsive image">
+</div>
+<div class="osahan-slider-item m-2 rounded">
+<img src="{% static 'img/recommend/r2.jpg' %}" class="img-fluid mx-auto rounded shadow-sm" alt="Responsive image">
+</div>
+<div class="osahan-slider-item m-2 rounded">
+<img src="{% static 'img/recommend/r3.jpg' %}" class="img-fluid mx-auto rounded shadow-sm" alt="Responsive image">
+</div>
+</div>
+<div class="p-3 position-relative">
+<h6 class="mb-1 font-weight-bold text-success">Fresh Orange
+</h6>
+<p class="text-muted">Orange Great Quality item from Jamaica.</p>
+<div class="d-flex align-items-center">
+<h6 class="m-0">$8.8/kg</h6>
+<a class="ml-auto" href="#">
+<form id='myform' class="cart-items-number d-flex" method='POST' action='#'>
+<input type='button' value='-' class='qtyminus btn btn-success btn-sm' field='quantity' />
+<input type='text' name='quantity' value='1' class='qty form-control' />
+<input type='button' value='+' class='qtyplus btn btn-success btn-sm' field='quantity' />
+</form>
+</a>
+</div>
+</div>
+</div>
+</a>
+</div>
+
+</div> {% endcomment %}
+<!-- --------------------------------recommend -->
+</div>
+
+
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+
+
+
+
+<nav id="main-nav">
+<ul class="second-nav">
+<li><a href="home.html"><i class="icofont-smart-phone mr-2"></i> Home</a></li>
+<li>
+<a href="#"><i class="icofont-login mr-2"></i> Authentication</a>
+<ul>
+<li><a class="dropdown-item" href="signin.html">Sign In</a></li>
+<li><a class="dropdown-item" href="signup.html">Sign Up</a></li>
+<li><a href="verification.html">Verification</a></li>
+</ul>
+</li>
+<li><a class="dropdown-item" href="listing.html">Listing</a></li>
+<li><a class="dropdown-item" href="product_details.html">Detail</a></li>
+<li><a class="dropdown-item" href="picks_today.html">Trending</a></li>
+<li><a class="dropdown-item" href="recommend.html">Recommended</a></li>
+<li><a class="dropdown-item" href="fresh_vegan.html">Most Popular</a></li>
+<li><a class="dropdown-item" href="cart.html">Cart</a></li>
+<li><a class="dropdown-item" href="checkout.html">Checkout</a></li>
+<li><a class="dropdown-item" href="successful.html">Successful</a></li>
+<li>
+<a href="#"><i class="icofont-sub-listing mr-2"></i> My Order</a>
+<ul>
+<li><a class="dropdown-item" href="my_order.html">My order</a></li>
+<li><a class="dropdown-item" href="status_complete.html">Status Complete</a></li>
+<li><a class="dropdown-item" href="status_onprocess.html">Status on Process</a></li>
+<li><a class="dropdown-item" href="status_canceled.html">Status Canceled</a></li>
+<li><a class="dropdown-item" href="review.html">Review</a></li>
+</ul>
+</li>
+<li>
+<a href="#"><i class="icofont-ui-user mr-2"></i> My Account</a>
+<ul>
+<li><a class="dropdown-item" href="my_account.html">My account</a></li>
+<li><a class="dropdown-item" href="promos.html">Promos</a></li>
+<li><a class="dropdown-item" href="my_address.html">My address</a></li>
+<li><a class="dropdown-item" href="terms_conditions.html">Terms & conditions</a></li>
+<li><a class="dropdown-item" href="help_support.html">Help & support</a></li>
+<li><a class="dropdown-item" href="help_ticket.html">Help ticket</a></li>
+<li><a class="dropdown-item" href="signin.html">Logout</a></li>
+</ul>
+</li>
+<li>
+<a href="#"><i class="icofont-page mr-2"></i> Pages</a>
+<ul>
+<li><a class="dropdown-item" href="verification.html">Verification</a></li>
+<li><a class="dropdown-item" href="promos.html">Promos</a></li>
+<li><a class="dropdown-item" href="promo_details.html">Promo Details</a></li>
+<li><a class="dropdown-item" href="terms_conditions.html">Terms & Conditions</a></li>
+<li><a class="dropdown-item" href="privacy.html">Privacy</a></li>
+<li><a class="dropdown-item" href="terms%26conditions.html">Conditions</a></li>
+<li><a class="dropdown-item" href="help_support.html">Help Support</a></li>
+<li><a class="dropdown-item" href="help_ticket.html">Help Ticket</a></li>
+<li><a class="dropdown-item" href="refund_payment.html">Refund Payment</a></li>
+<li><a class="dropdown-item" href="faq.html">FAQ</a></li>
+<li><a class="dropdown-item" href="signin.html">Sign In</a></li>
+<li><a class="dropdown-item" href="signup.html">Sign Up</a></li>
+<li><a class="dropdown-item" href="search.html">Search</a></li>
+</ul>
+</li>
+<li>
+<a href="#"><i class="icofont-link mr-2"></i> Navigation Link Example</a>
+<ul>
+<li>
+<a href="#">Link Example 1</a>
+<ul>
+<li>
+<a href="#">Link Example 1.1</a>
+<ul>
+<li><a href="#">Link</a></li>
+<li><a href="#">Link</a></li>
+<li><a href="#">Link</a></li>
+<li><a href="#">Link</a></li>
+<li><a href="#">Link</a></li>
+</ul>
+</li>
+<li>
+<a href="#">Link Example 1.2</a>
+<ul>
+<li><a href="#">Link</a></li>
+<li><a href="#">Link</a></li>
+<li><a href="#">Link</a></li>
+<li><a href="#">Link</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#">Link Example 2</a></li>
+<li><a href="#">Link Example 3</a></li>
+<li><a href="#">Link Example 4</a></li>
+<li data-nav-custom-content>
+<div class="custom-message">
+You can add any custom content to your navigation items. This text is just an example.
+</div>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="bottom-nav">
+<li class="email">
+<a class="text-success" href="home.html">
+<p class="h5 m-0"><i class="icofont-home text-success"></i></p>
+Home
+</a>
+</li>
+<li class="github">
+<a href="cart.html">
+<p class="h5 m-0"><i class="icofont-cart"></i></p>
+CART
+</a>
+</li>
+<li class="ko-fi">
+<a href="help_ticket.html">
+<p class="h5 m-0"><i class="icofont-headphone"></i></p>
+Help
+</a>
+</li>
+</ul>
+</nav>
+
+<footer class="section-footer border-top bg-white">
+
+
+<section class="footer-main border-top pt-5 pb-4">
+<div class="container">
+<div class="row">
+<aside class="col-md">
+<h6 class="title">Products</h6>
+<ul class="list-unstyled list-padding">
+<li> <a href="listing.html" class="text-dark">Listing</a></li>
+<li> <a href="product_details.html" class="text-dark">Detail</a></li>
+<li> <a href="picks_today.html" class="text-dark">Trending</a></li>
+<li> <a href="recommend.html" class="text-dark">Recommended</a></li>
+<li> <a href="fresh_vegan.html" class="text-dark">Most Popular</a></li>
+</ul>
+</aside>
+<aside class="col-md">
+<h6 class="title">Checkout Process</h6>
+<ul class="list-unstyled list-padding">
+<li> <a href="cart.html" class="text-dark">Cart</a></li>
+<li> <a href="cart.html" class="text-dark">Order Address</a></li>
+<li> <a href="cart.html" class="text-dark">Delivery Time</a></li>
+<li> <a href="cart.html" class="text-dark">Order Payment</a></li>
+<li> <a href="checkout.html" class="text-dark">Checkout</a></li>
+<li> <a href="successful.html" class="text-dark">Successful</a></li>
+</ul>
+</aside>
+<aside class="col-md">
+<h6 class="title">My Order</h6>
+<ul class="list-unstyled list-padding">
+<li> <a href="my_order.html" class="text-dark">My order</a></li>
+<li> <a href="status_complete.html" class="text-dark">Status Complete</a></li>
+<li> <a href="status_onprocess.html" class="text-dark">Status on Process</a></li>
+<li> <a href="status_canceled.html" class="text-dark">Status Canceled</a></li>
+<li> <a href="review.html" class="text-dark">Review</a></li>
+</ul>
+</aside>
+<aside class="col-md">
+<h6 class="title">My Account</h6>
+<ul class="list-unstyled list-padding">
+<li> <a class="text-dark" href="my_account.html"> My account</a></li>
+<li> <a class="text-dark" href="promos.html"> Promos</a></li>
+<li> <a class="text-dark" href="my_address.html"> My address</a></li>
+<li> <a class="text-dark" href="terms_conditions.html"> Terms &amp; conditions</a></li>
+<li> <a class="text-dark" href="help_support.html"> Help &amp; support</a></li>
+ <li> <a class="text-dark" href="help_ticket.html"> Help ticket</a></li>
+<li> <a class="text-dark" href="signin.html"> Logout</a></li>
+</ul>
+</aside>
+<aside class="col-md">
+<h6 class="title">Extra Pages</h6>
+<ul class="list-unstyled list-padding">
+<li><a href="promo_details.html" class="text-dark"> Promo Details </a></li>
+<li><a href="terms_conditions.html" class="text-dark"> Conditions </a></li>
+<li><a href="help_support.html" class="text-dark"> Help Support </a></li>
+<li><a href="refund_payment.html" class="text-dark"> Refund Payment </a></li>
+<li><a href="faq.html" class="text-dark"> FAQ </a></li>
+<li><a href="signin.html" class="text-dark"> Sign In </a></li>
+</ul>
+</aside>
+</div>
+
+</div>
+
+</section>
+
+<section class="footer-bottom border-top py-4">
+<div class="container">
+<div class="row">
+<div class="col-md-6">
+<span class="pr-2">© 2023   The Green</span>
+<span class="pr-2"><a href="privacy.html" class="text-dark">Privacy</a></span>
+<span class="pr-2"><a href="terms%26conditions.html" class="text-dark">Terms & Conditions</a></span>
+</div>
+</div>
+
+</div>
+
+</section>
+
+<script src="{% static 'vendor/jquery/jquery.min.js' %}" type="cb9055d60da94e014ea7493c-text/javascript"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}" type="cb9055d60da94e014ea7493c-text/javascript"></script>
+
+<script type="cb9055d60da94e014ea7493c-text/javascript" src="{% static 'vendor/slick/slick.min.js' %}"></script>
+
+<script type="cb9055d60da94e014ea7493c-text/javascript" src="{% static 'vendor/sidebar/hc-offcanvas-nav.js' %}"></script>
+
+<script src="{% static 'js/osahan.js' %}" type="cb9055d60da94e014ea7493c-text/javascript"></script>
+<script src="{% static 'cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js' %}" data-cf-settings="cb9055d60da94e014ea7493c-|49" defer=""></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/vaafb692b2aea4879b33c060e79fe94621666317369993" integrity="sha512-0ahDYl866UMhKuYcW078ScMalXqtFJggm7TmlUtp0UlD4eQk0Ixfnm5ykXKvGJNFjLMoortdseTfsRT8oCfgGA==" data-cf-beacon='{"rayId":"79728174a9c83228","version":"2022.11.3","r":1,"token":"dd471ab1978346bbb991feaa79e6ce5c","si":100}' crossorigin="anonymous"></script>
+</body>
+
+<!-- Mirrored from askbootstrap.com/preview/vegishop/home.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 10 Feb 2023 05:40:09 GMT -->
+</html>

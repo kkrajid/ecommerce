@@ -1,0 +1,33 @@
+.main{
+    text-align: center;
+    border: 1.5px solid blue;
+    border-radius: 5px;
+    width: 35%;
+    margin-left: 32%;
+    margin-top: 10%;
+}
+input{
+    margin: 10px;
+    padding: 5px;
+}
+
+h4{
+    color: crimson;
+}
+h1{
+    color: red;
+}
+a{
+    text-decoration: none;
+}
+#rk{
+    margin: 10px;
+    padding: 5px;
+    background-color: blue;
+    width: 20%;
+    color: white;
+    font-weight: bold;
+    border: 1px solid blue;
+    border-radius: 3px;
+
+}

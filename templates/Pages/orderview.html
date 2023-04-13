@@ -1,0 +1,187 @@
+
+{% extends "Pages/base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-1XSKoEkYfO+jOyodAwh0Soy+rl1mcteHbGhDDx2Qk4N9SWHsQs0d0wx8hNB6fHl6p/0OnBkTz0vjaPbvr1gzow==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+  .cart-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  background-color: #f5f5f5;
+  border-radius: 0.25rem;
+  border: none;
+  color: #333;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.cart-icon {
+  margin-right: 0.5rem;
+}
+
+.cart-count {
+  display: inline-block;
+  margin-left: 0.25rem;
+  padding: 0.25rem;
+  background-color: #333;
+  color: #fff;
+  font-size: 0.75rem;
+  border-radius: 50%;
+}
+
+</style>
+
+  <div class="container my-3" id="langingpage" >
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h6 class="mb-0">Order View
+                        <a href="{% url 'my_orders'%}" class="btn btn-success float-end text-white"><i class="fa fa-reply"></i> Back</a>
+                        <a href="{% url 'pdf_invoice' order.tracking_no %}" class="btn btn-warning float-end text-white "> Invoice</a>
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Shipping Dtails</h4>
+                            <hr>
+                            <label class="mt-2" for="">First Name</label>
+                            <div class="border p-1">{{order.address.first_name}}</div>
+                            <label class="mt-2" for="">Last Name</label>
+                            <div class="border p-1">{{order.address.last_name}}</div>
+                            <label class="mt-2" for="">Email</label>
+                            <div class="border p-1">{{order.address.email}}</div>
+                            <label class="mt-2" for="">Contact No.</label>
+                            <div class="border p-1">{{order.address.phone}}</div>
+                            <label class="mt-2" for="">Address</label>
+                            <div class="border p-1">
+                                {{order.address.address}},
+                                {{order.address.city}},
+                                {{order.address.state}}
+                            </div>
+                            <label for="">Pin Code</label>
+                            <div class="border p-1">{{order.address.pincode}}</div>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Order Details</h4>
+                            <hr>
+                            <table class="table table-bordereds">
+                                <thead>
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th>Qty</th>
+                                        <th>Price</th>
+                                        <th>Image</th>                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in orderitem %}
+                                    <tr>
+                                        <td>{{item.product.name}}</td>
+                                        <td>{{item.quantity}}</td>
+                                        <td>{{item.price}}</td>
+                                        <td> <img src=" {{item.product.product_image.url}}" height="50px" width="50px" alt="Product image"></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <h5>Grand Total  : <span class="float-end">{{order.total_price}}</span> </h5>
+                            <h6 style="font-size:small;">Discount Price  : <span class="float-end">{{order.discount_price}}</span> </h6>
+                            <h6 class="border p-2" >Order Status : {{order.status}}</h6>
+                            <h6 class="border p-2">Payment Mode : {{order.payment_mode}}</h6>
+                            <h6 class="border p-2">Tracking No. : {{order.tracking_no}}</h6>
+                            {% if order.status != "Cancelled" and order.status != "Deliverd" and order.status != "Return" and order.status != "Returned" %}
+                            <a href="{% url 'cancel_order' order.id %}" class="btn btn-white border border-secondary float-end"><i class="icofont-close-line mr-2 text-danger mb-0"></i> Cancel</a>
+                            {% elif order.status == 'Deliverd' %}
+                            <a href="{% url 'returnorder' order.id %}" class="btn btn-danger border border-secondary float-end">Return</a>
+                            {% else %}
+                            <a href="{% url 'Home' %}" class="btn btn-primary border border-secondary float-end">Continue To Shop</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+  <script>
+    $(document).ready(function() {
+      $('.increment-btn').click(function(e) {
+        e.preventDefault();
+        var dec_value = $(this).closest('.product_data').find('.qty-input').val();
+        var value = parseInt(dec_value, 10);
+        value = isNaN(value) ? 0 : value;
+        if (value < 10) {
+          value++;
+          $(this).closest('.product_data').find('.qty-input').val(value);
+        }
+      });
+    
+      $('.decrement-btn').click(function(e) {
+        e.preventDefault();
+        var dec_value = $(this).closest('.product_data').find('.qty-input').val();
+        var value = parseInt(dec_value, 10);
+        value = isNaN(value) ? 0 : value;
+        if (value > 1) {
+          value--;
+          $(this).closest('.product_data').find('.qty-input').val(value);
+        }
+      });
+    
+      $('.changequantity').click(function(e) {
+        e.preventDefault();
+        var product_id = $(this).closest('.product_data').find('.prod_id').val();
+        var product_qty = $(this).closest('.product_data').find('.qty-input').val();
+        var token = $('input[name=csrfmiddlewaretoken]').val();
+       
+        $.ajax({
+          url: "/update_cart",
+          method: "POST",
+          dataType: "json",
+          data: {
+            'product_id': product_id,
+            'product_qty': product_qty,
+            'csrfmiddlewaretoken': token
+          },
+          success: function(response) {
+            // Handle successful response from server
+            console.log(response)
+                
+          },
+          error: function(xhr, status, error) {
+            // Handle error response from server
+          }
+        });
+      });
+    
+      $(document).on('click','.delete-cart-item',function (e) {
+        e.preventDefault();
+        var product_id = $(this).closest('.product_data').find('.prod_id').val();
+        var token = $('input[name=csrfmiddlewaretoken]').val();
+    
+        $.ajax({
+          method: "POST",
+          url: "/delete_cart_item",
+          data: {
+            'product_id':product_id,
+            csrfmiddlewaretoken:token
+          },
+          
+          success: function (response) {
+            $('.carddata').load(location.href+ " .carddata");
+          }
+        });
+      });
+      
+    });
+    </script>
+    
+
+  {% endblock content %}

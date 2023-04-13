@@ -1,0 +1,536 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from askbootstrap.com/preview/vegishop/home.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 10 Feb 2023 05:39:41 GMT -->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" href="{% static 'img/logo.png' %}">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/slick/slick.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/slick/slick-theme.min.css' %}" />
+
+    <link href="{% static 'vendor/icons/icofont.min.css' %}" rel="stylesheet" type="text/css">
+
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <link href="{% static 'vendor/sidebar/demo.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/slick/slick.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/slick/slick-theme.min.css' %}" />
+    <link href="{% static 'vendor/icons/icofont.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/sidebar/demo.css' %}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style>
+        #cart-icon {
+            position: relative;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        #cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: red;
+            color: white;
+            font-size: 12px;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            text-align: center;
+            line-height: 16px;
+        }
+
+        .not-visible {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="fixed-bottom-padding">
+    <!-- -----------------------------------------Header -------------------------------------------------------------- -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="l-top">
+                        <li><a href="#"><i class="icofont-checked"></i> Accurate Weight</a></li>
+                        <li><a href="#"><i class="icofont-checked"></i> Fresh & Fast</a></li>
+                        <li><a href="#"><i class="icofont-checked"></i> Sorted Vegetables</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="r-top">
+                        <li><a href="#"><i class="icofont-headphone-alt"></i> Helpline :7593808546</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="border-bottom p-3 d-none mobile-nav">
+        <div class="title d-flex align-items-center">
+            <a href="{% url 'Home' %}" class="text-decoration-none text-dark d-flex align-items-center">
+                <img class="osahan-logo mr-2" src="{% static 'img/logo.png' %}">
+                <h4 class="font-weight-bold text-success m-0">Grocery</h4>
+            </a>
+            <p class="ml-auto m-0">
+                <a href="listing.html"
+                    class="text-decoration-none bg-white p-1 rounded shadow-sm d-flex align-items-center">
+                    <i class="text-dark icofont-sale-discount"></i>
+                    <span class="badge badge-danger p-1 ml-1 small">50%</span>
+                </a>
+            </p>
+            <a class="toggle ml-3" href="#"><i class="icofont-navigation-menu"></i></a>
+        </div>
+        <a href="search.html" class="text-decoration-none">
+            <div class="input-group mt-3 rounded shadow-sm overflow-hidden bg-white">
+                <div class="input-group-prepend">
+                    <button class="border-0 btn btn-outline-secondary text-success bg-white"><i
+                            class="icofont-search"></i></button>
+                </div>
+                <input type="text" class="shadow-none border-0 form-control pl-0" placeholder="Search for Products.."
+                    aria-label="" aria-describedby="basic-addon1">
+            </div>
+        </a>
+    </div>
+
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider round"></div>
+            <i class="icofont-moon"></i>
+        </label>
+        <em>Enable Dark Mode!</em>
+    </div>
+
+    <!-- ------------------------------------Website header start--------------------------------------------------------------------------- -->
+    <div class="bg-white shadow-sm osahan-main-nav">
+        <!-- ------------------------------------Website search and logo cart start--------------------------------------------------------------------------- -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white osahan-header py-0 container">
+            <a class="navbar-brand mr-0" href="{% url 'Home' %}"><img class="img-fluid logo-img "
+                    src="{% static 'img/logo.png' %}"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="ml-3 d-flex align-items-center">
+                <div class="dropdown mr-5">
+                    <a class="text-dark dropdown-toggle d-flex align-items-center osahan-location-drop" href="#"
+                        id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <div><i
+                                class="icofont-location-pin d-flex align-items-center bg-light rounded-pill p-2 icofont-size border shadow-sm mr-2"></i>
+                        </div>
+                        <div>
+                            <p class="text-muted mb-0 small">Select Location</p>
+                            Maharashtra India...
+                        </div>
+                    </a>
+                    <div class="dropdown-menu osahan-select-loaction p-3" aria-labelledby="navbarDropdown">
+                        <span>Select your city to start shopping</span>
+                        <form class="form-inline my-2">
+
+                            <div class="input-group p-0 col-lg-12">
+                                <input type="text" class="form-control form-control-sm"
+                                    id="inlineFormInputGroupUsername2" placeholder="Search Location">
+                                <div class="input-group-prepend">
+                                    <div class="btn btn-success rounded-right btn-sm"><i
+                                            class="icofont-location-arrow"></i> Detect</div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="city pt-2">
+                            <h6>Top Citys</h6>
+                            <p class="border-bottom m-0 py-1"><a href="#" class="text-dark">Banglore</a></p>
+                            <p class="border-bottom m-0 py-1"><a href="#" class="text-dark">Noida</a></p>
+                            <p class="border-bottom m-0 py-1"><a href="#" class="text-dark">Delhi</a></p>
+                            <p class="m-0 py-1"><a href="#" class="text-dark">Mumbai</a></p>
+                        </div>
+                    </div>
+                </div>
+                <!-------------------------------------------search start------------------------------------------------------ -->
+                <form class="input-group mr-sm-2 col-lg-12" id="search-form">
+                    {% csrf_token %}
+                    <input type="text" class="form-control" id="search-input" placeholder="Search for Products..">
+                    <div class="input-group-prepend">
+                        <div class="btn btn-success rounded-right"><i class="icofont-search"></i></div>
+                    </div>
+                </form>
+
+                <!-- <div class="w-100 text-center">
+                    <form action="" id="search-form" autocomplete="off" class="d-flex" >
+                        {% csrf_token %}
+                        <input type="text" id="search-input" class="form-control ml-5 p-1 search col-12" placeholder=" Search for Products.." >
+                        <button class="btn btn-success rounded-right"><i class="icofont-search"></i></button>
+                    </form>
+                    <div id="results-box" class="results-card not-visible" >Lorem, ipsum dolor sit amet consectetur  <br> adipisicing elit. <br> Autem labore ipsum maxime, ipsam mollitia voluptate consequatur rerum delectus laboriosam quam voluptatem ad, at quis ea excepturi numquam voluptates. Architecto, odit.
+                        
+                    </div>
+                </div> -->
+                <!-------------------------------------------search end------------------------------------------------------ -->
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+
+                <div class="dropdown mr-3">
+                    <a href="#" class="dropdown-toggle text-dark" id="dropdownMenuButton" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <img src="{% static 'img/user.png' %}" class="img-fluid rounded-circle header-user mr-2"> Hi
+                        {{user.first_name}}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right top-profile-drop"
+                        aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{% url 'Myaccounts'%}">My account</a>
+                        <a class="dropdown-item" href="{% url 'my_orders'%}">My Order</a>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                    </div>
+                </div>
+
+                {% comment %} <div class="dropdown">
+                    <a href="#" class="text-dark dropdown-toggle not-drop" id="dropdownMenuNotification"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i
+                            class="icofont-notification d-flex align-items-center bg-light rounded-pill p-2 icofont-size border shadow-sm">
+
+                        </i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right p-0 osahan-notifications-main"
+                        aria-labelledby="dropdownMenuNotification">
+
+                        <div class="osahan-notifications bg-white border-bottom p-2">
+                            <div class="position-absolute ml-n1 py-2"><i
+                                    class="icofont-check-circled text-white bg-success rounded-pill p-1"></i></div>
+                            <a href="status_complete.html" class="text-decoration-none text-dark">
+                                <div class="notifiction small">
+                                    <div class="ml-3">
+                                        <p class="font-weight-bold mb-1">Yay! Order Complete</p>
+                                        <p class="small m-0"><i class="icofont-ui-calendar"></i> Today, 05:14 AM</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="osahan-notifications bg-white border-bottom p-2">
+                            <a href="status_onprocess.html" class="text-decoration-none text-muted">
+                                <div class="notifiction small">
+                                    <div class="ml-3">
+                                        <p class="font-weight-bold mb-1">Yipiee. order Success</p>
+                                        <p class="small m-0"><i class="icofont-ui-calendar"></i> Monday, 08:30 PM</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="osahan-notifications bg-white p-2">
+                            <a href="status_onprocess.html" class="text-decoration-none text-muted">
+                                <div class="notifiction small">
+                                    <div class="ml-3">
+                                        <p class="font-weight-bold mb-1">New Promos Coming</p>
+                                        <p class="small m-0"><i class="icofont-ui-calendar"></i> Sunday, 10:30 AM</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div> {% endcomment %}
+                <a href="{% url 'Cart_page' %}" id="cart-icon"
+                    class="ml-2 text-dark bg-light rounded-pill p-2 icofont-size border shadow-sm"
+                    style="position: relative; display: inline-block; margin-right: 10px;">
+                    <i class="icofont-shopping-cart"></i> <span id="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+        <!-- ------------------------------------Website search and logo cart end--------------------------------------------------------------------------- -->
+        <div class="bg-color-head">
+            <div class="container menu-bar d-flex align-items-center">
+                <ul class="list-unstyled form-inline mb-0">
+                    <li class="nav-item active">
+                        <a class="nav-link text-white pl-0" href="{% url 'Home' %}">Home <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Products
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'listing' %}">Listing</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'allproducts' %}">Trending</a>
+                           
+                        </div>
+                    </li>
+                </ul>
+                <div class="list-unstyled form-inline mb-0 ml-auto">
+                    <a href="{% url 'allproducts' %}" class="text-white px-3 py-2">Trending</a>
+                    <a href="promos.html" class="text-white bg-offer px-3 py-2"><i
+                            class="icofont-sale-discount h6"></i>Promos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ------------------------------------Website header end--------------------------------------------------------------------------- -->
+    <nav aria-label="breadcrumb" class="breadcrumb mb-0 d-none">
+        <div class="container">
+            <ol class="d-flex align-items-center mb-0 p-0">
+                <li class="breadcrumb-item"><a href="#" class="text-success">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page"></li>
+            </ol>
+        </div>
+    </nav>
+
+
+    {% block content %}{% endblock content %}
+
+
+    <section class="py-4 osahan-main-body not-visible" id="searchlist">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12" id="resultOFsearch">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="section-footer border-top bg-white">
+        <section class="footer-top py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-inline">
+                            <select class="custom-select mr-2">
+                                <option>USD</option>
+                                <option>EUR</option>
+                                <option>RUBL</option>
+                            </select>
+                            <select class="custom-select">
+                                <option>United States</option>
+                                <option>Russia</option>
+                                <option>Uzbekistan</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <form>
+                            <div class="input-group">
+                                <input type="text" placeholder="Email" class="form-control" name="">
+                                <span class="input-group-append">
+                                    <button type="submit" class="btn btn-success"> Subscribe</button>
+                                </span>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="col-md-4 text-md-right">
+                        <a href="#" class="btn btn-icon btn-light"><i class="icofont-facebook"></i></a>
+                        <a href="#" class="btn btn-icon btn-light"><i class="icofont-twitter"></i></a>
+                        <a href="#" class="btn btn-icon btn-light"><i class="icofont-instagram"></i></a>
+                        <a href="#" class="btn btn-icon btn-light"><i class="icofont-youtube"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="footer-main border-top pt-5 pb-4">
+            <div class="container">
+                <div class="row">
+                    <aside class="col-md">
+                        <h6 class="title">Products</h6>
+                        <ul class="list-unstyled list-padding">
+                            <li> <a href="listing.html" class="text-dark">Listing</a></li>
+                            <li> <a href="product_details.html" class="text-dark">Detail</a></li>
+                            <li> <a href="picks_today.html" class="text-dark">Trending</a></li>
+                            <li> <a href="recommend.html" class="text-dark">Recommended</a></li>
+                            <li> <a href="fresh_vegan.html" class="text-dark">Most Popular</a></li>
+                        </ul>
+                    </aside>
+                    <aside class="col-md">
+                        <h6 class="title">Checkout Process</h6>
+                        <ul class="list-unstyled list-padding">
+                            <li> <a href="cart.html" class="text-dark">Cart</a></li>
+                            <li> <a href="cart.html" class="text-dark">Order Address</a></li>
+                            <li> <a href="cart.html" class="text-dark">Delivery Time</a></li>
+                            <li> <a href="cart.html" class="text-dark">Order Payment</a></li>
+                            <li> <a href="checkout.html" class="text-dark">Checkout</a></li>
+                            <li> <a href="successful.html" class="text-dark">Successful</a></li>
+                        </ul>
+                    </aside>
+                    <aside class="col-md">
+                        <h6 class="title">My Order</h6>
+                        <ul class="list-unstyled list-padding">
+                            <li> <a href="my_order.html" class="text-dark">My order</a></li>
+                            <li> <a href="status_complete.html" class="text-dark">Status Complete</a></li>
+                            <li> <a href="status_onprocess.html" class="text-dark">Status on Process</a></li>
+                            <li> <a href="status_canceled.html" class="text-dark">Status Canceled</a></li>
+                            <li> <a href="review.html" class="text-dark">Review</a></li>
+                        </ul>
+                    </aside>
+                    <aside class="col-md">
+                        <h6 class="title">My Account</h6>
+                        <ul class="list-unstyled list-padding">
+                            <li> <a class="text-dark" href="my_account.html"> My account</a></li>
+                            <li> <a class="text-dark" href="promos.html"> Promos</a></li>
+                            <li> <a class="text-dark" href="my_address.html"> My address</a></li>
+                            <li> <a class="text-dark" href="terms_conditions.html"> Terms &amp; conditions</a></li>
+                            <li> <a class="text-dark" href="help_support.html"> Help &amp; support</a></li>
+                            <li> <a class="text-dark" href="help_ticket.html"> Help ticket</a></li>
+                            <li> <a class="text-dark" href="signin.html"> Logout</a></li>
+                        </ul>
+                    </aside>
+                    <aside class="col-md">
+                        <h6 class="title">Extra Pages</h6>
+                        <ul class="list-unstyled list-padding">
+                            <li><a href="promo_details.html" class="text-dark"> Promo Details </a></li>
+                            <li><a href="terms_conditions.html" class="text-dark"> Conditions </a></li>
+                            <li><a href="help_support.html" class="text-dark"> Help Support </a></li>
+                            <li><a href="refund_payment.html" class="text-dark"> Refund Payment </a></li>
+                            <li><a href="faq.html" class="text-dark"> FAQ </a></li>
+                            <li><a href="signin.html" class="text-dark"> Sign In </a></li>
+                        </ul>
+                    </aside>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="footer-bottom border-top py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <span class="pr-2">© 2021 Vegishop</span>
+                        <span class="pr-2"><a href="privacy.html" class="text-dark">Privacy</a></span>
+                        <span class="pr-2"><a href="terms%26conditions.html" class="text-dark">Terms &
+                                Conditions</a></span>
+                    </div>
+                    <div class="col-md-6 text-md-right">
+                        <a href="#"><img src="" height="30"></a>
+                        <a href="#"><img src="" height="30"></a>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </footer>
+
+
+
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}" type="cb9055d60da94e014ea7493c-text/javascript"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"
+        type="cb9055d60da94e014ea7493c-text/javascript"></script>
+
+    <script type="cb9055d60da94e014ea7493c-text/javascript" src="{% static 'vendor/slick/slick.min.js' %}"></script>
+
+    <script type="cb9055d60da94e014ea7493c-text/javascript"
+        src="{% static 'vendor/sidebar/hc-offcanvas-nav.js' %}"></script>
+
+    <script src="{% static 'js/osahan.js' %}" type="cb9055d60da94e014ea7493c-text/javascript"></script>
+    <script src="{% static 'cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js' %}"
+        data-cf-settings="cb9055d60da94e014ea7493c-|49" defer=""></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            setInterval(function () {
+                $.ajax({
+                    url: "{% url 'base' %}",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        // Handle success response
+                        $("#cart-count").text(data.count);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        // Handle error response
+                    }
+                });
+            }, 1000); // 1000 milliseconds = 1 second
+        });
+
+        const url = window.location.href;
+        const searchForm = document.getElementById('search-form');
+        const searchInput = document.getElementById('search-input');
+        const searchlist = document.getElementById('searchlist');
+        const resultOFsearch = document.getElementById('resultOFsearch');
+
+        const langingpage = document.getElementById("langingpage");
+        const addAddress = document.getElementById("addAddress");
+        const csrf = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+
+        const searchResultsData = (product) => {
+            $.ajax({
+                method: "POST",
+                url: "{% url 'searchproduct' %}",
+                data: {
+                    'csrfmiddlewaretoken': csrf,
+                    'product': product,
+                },
+                success: function (response) {
+                    console.log(response);
+                    const data = response
+                    if (Array.isArray(data)) {
+                        resultOFsearch.innerHTML = ''
+                        console.log('we have an array')
+                        data.forEach(product => {
+                            resultOFsearch.innerHTML += `
+                            <a href="/Categories/${product.category}/${product.name}" class="text-dark">
+                                <div class="d-flex align-items-center bg-white shadow-sm rounded mb-2 p-3">
+                                    <img src="${product.image}" class="img-fluid rounded shadow-sm mr-3" style="width: 180px; height: auto;">
+                                    <span class="font-weight-bold">${product.name}
+                                        <p class="small text-muted m-0"></p>
+                                    </span>
+                                </div>
+                            </a>
+                            `
+                        })
+                    } else {
+                        if (searchInput.value.length > 0) {
+                            resultOFsearch.innerHTML = `<center><h3>${data.error}</h3></center>`;
+                        } else {
+                            resultOFsearch.classList.add('not-visible')
+                        }
+                    }
+                }
+            });
+        };
+
+        searchInput.addEventListener('keyup', e => {
+            if (searchlist.classList.contains('not-visible')) {
+                searchlist.classList.remove('not-visible');
+                langingpage.style.display = 'none';
+                addAddress.style.display = 'none';
+            }
+            if (e.target.value == '') {
+                searchlist.classList.add('not-visible');
+                langingpage.style.display = 'block';
+                addAddress.style.display = 'block';
+            }
+            searchResultsData(e.target.value);
+        });
+
+
+    </script>
+</body>
+
+<!-- Mirrored from askbootstrap.com/preview/vegishop/home.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 10 Feb 2023 05:40:09 GMT -->
+
+</html>

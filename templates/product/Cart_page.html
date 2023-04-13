@@ -1,0 +1,364 @@
+
+{% extends "Pages/base.html" %}
+{% load static %}
+{% block content %}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+
+    .container-fluid {
+      margin-top: 70px
+    }
+
+    .card-body {
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+      padding: 1.40rem
+    }
+
+    .img-sm {
+      width: 100px;
+      height: auto;
+    }
+
+    .itemside .info {
+      padding-left: 15px;
+      padding-right: 7px
+    }
+
+    .table-shopping-cart .price-wrap {
+      line-height: 1.2
+    }
+
+    .table-shopping-cart .price {
+      font-weight: bold;
+      margin-right: 5px;
+      display: block
+    }
+
+    .text-muted {
+      color: #969696 !important
+    }
+
+    a {
+      text-decoration: none !important
+    }
+
+    .card {
+      position: relative;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      min-width: 0;
+      word-wrap: break-word;
+      background-color: #fff;
+      background-clip: border-box;
+      border: 1px solid rgba(0, 0, 0, .125);
+      border-radius: 0px
+    }
+
+    .itemside {
+      position: relative;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      width: 100%
+    }
+
+    .dlist-align {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex
+    }
+
+    [class*="dlist-"] {
+      margin-bottom: 5px
+    }
+
+    .coupon {
+      border-radius: 1px
+    }
+
+    .price {
+      font-weight: 600;
+      color: #212529
+    }
+
+    .btn.btn-out {
+      outline: 1px solid #fff;
+      outline-offset: -5px
+    }
+
+    .btn-main {
+      border-radius: 2px;
+      text-transform: capitalize;
+      font-size: 15px;
+      padding: 10px 19px;
+      cursor: pointer;
+      color: #fff;
+      width: 100%
+    }
+
+    .btn-light {
+      color: #ffffff;
+      background-color: #F44336;
+      border-color: #f8f9fa;
+      font-size: 12px
+    }
+
+    .btn-light:hover {
+      color: #ffffff;
+      background-color: #F44336;
+      border-color: #F44336
+    }
+
+    .btn-apply {
+      font-size: 11px
+    }
+
+    .cart-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      background-color: #f5f5f5;
+      border-radius: 0.25rem;
+      border: none;
+      color: #333;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .cart-icon {
+      margin-right: 0.5rem;
+    }
+
+    .cart-count {
+      display: inline-block;
+      margin-left: 0.25rem;
+      padding: 0.25rem;
+      background-color: #333;
+      color: #fff;
+      font-size: 0.75rem;
+      border-radius: 50%;
+    }
+  </style>
+
+
+  <div class="py-5" id="langingpage">
+    <div class="container">
+      <div class="row carddata">
+        {% if cart_list %}
+        <aside class="col-lg-9">
+          <div class="table-responsive ">
+            <table class="table table-borderless table-shopping-cart">
+              <thead class="text-muted">
+                <tr class="small text-uppercase">
+                  <th scope="col">Product</th>
+                  <th scope="col" width="120"> &nbsp;Quantity</th>
+                  <th scope="col" width="120">Price</th>
+                  <th scope="col" class="text-right d-none d-md-block" width="200"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in cart_list %}
+                <!-- ------------------------------------------------------------------------------------------------------- -->
+                <tr class="product_data ">
+                  <td>
+                    <figure class="itemside align-items-center">
+                      <div class="aside"><img src="{{item.products.product_image.url}}" class="img-sm"></div>
+                      <figcaption class="info"> <a href="#" class="title text-dark"
+                          data-abc="true">{{item.products.name}}</a>
+                        <p class="text-muted small"> <br> Brand: </p>
+                      </figcaption>
+                    </figure>
+                  </td>
+                  <td>
+                    <div class="col-md-3 my-auto">
+                      <input type="hidden" class="prod_id" value="{{item.products_id}}">
+                      {% csrf_token %}
+                      {% if item.products.quantity >= item.product_qty %}
+                     
+                      <div class="input-group-text mb-3 " style="width: 130px;">
+                        <button class=" input-group-text changequantity decrement-btn">-</button>
+                        <input type="text" name="quantity" class="form-control qty-input text-center"
+                          value="{{item.product_qty}}">
+                        <button class=" input-group-text changequantity increment-btn">+</button>
+                      </div>
+                      {% else %}
+                      <h6>Out of Stock</h6>
+                      {% endif %}
+                    </div>
+                  </td>
+                  <td>
+                    <div class="price-wrap"> <var class="price hghhg">{{item.total}}</var><small class="text-muted selling">{{item.products.selling_price}}
+                      </small> </div>
+                  </td>
+                  <td class="text-right d-none d-md-block "> <button class="btn btn-danger delete-cart-item "><i
+                        class="fa fa-trash">&nbsp; Remove</i></button></td>
+                </tr>
+                {% endfor %}
+                <!-- ------------------------------------------------------------------------------------------------------- -->
+              </tbody>
+            </table> </div>
+
+        </aside>
+        <aside class="col-lg-3">
+          <div class="card">
+            <div class="card-body">
+             
+              <dl class="dlist-align">
+                <dt>Total:</dt>
+                <dd class="text-right text-dark b ml-3"><strong class="ored">{{total_price}}</strong></dd>
+              </dl>
+              <hr> <a href="{% url 'checkout' %}" class="btn btn-out btn-primary btn-square btn-main" data-abc="true">
+                Checkout </a>
+              <a href="{% url 'Home' %}" class="btn btn-out btn-success btn-square btn-main mt-2" data-abc="true">Continue
+                Shopping</a>
+            </div>
+          </div>
+        </aside>
+
+        {% else %}
+        <h4>Your Cart is Empty</h4>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    $(document).ready(function () {
+
+
+
+      $('.increment-btn').click(function (e) {
+        e.preventDefault();
+        var dec_value = $(this).closest('.product_data').find('.qty-input').val();
+        var sellprice = $(this).closest('.product_data').find('.selling').text();
+        var value = parseInt(dec_value, 10);
+        var sellpriceOfpro = parseInt(sellprice, 10);
+
+        value = isNaN(value) ? 0 : value;
+        if (value < 10) {
+          value++;
+          $(this).closest('.product_data').find('.qty-input').val(value);
+
+        }
+        let sellingP = value * sellpriceOfpro;
+        $(this).closest('.product_data').find('.price').text(sellingP);
+
+
+      });
+
+      $('.decrement-btn').click(function (e) {
+        e.preventDefault();
+        var dec_value = $(this).closest('.product_data').find('.qty-input').val();
+        var sellprice = $(this).closest('.product_data').find('.selling').text();
+        var value = parseInt(dec_value, 10);
+        var sellpriceOfpro = parseInt(sellprice, 10);
+
+        value = isNaN(value) ? 0 : value;
+        if (value > 1) {
+          value--;
+          $(this).closest('.product_data').find('.qty-input').val(value);
+        }
+        let sellingP = value * sellpriceOfpro;
+        $(this).closest('.product_data').find('.price').text(sellingP);
+
+      });
+
+      // $('.decrement-btn').click(function (e) {
+      //   e.preventDefault();
+      //   const quantity = parseInt($(this).closest('.product_data').find('.qty-input').val(), 10);
+      //   const sellerPrice = parseInt($(this).closest('.product_data').find('.selling_pr0').text(), 10);
+
+      //   if (quantity > 1) {
+      //     const newQuantity = quantity - 1;
+      //     $(this).closest('.product_data').find('.qty-input').val(newQuantity);
+
+      //     const unitPrice = sellerPrice / newQuantity;
+      //     console.log(`New quantity: ${newQuantity}`);
+      //     console.log(`Total price: ${unitPrice * newQuantity}`);
+      //   }
+      // });
+
+
+      $('.changequantity').click(function (e) {
+        e.preventDefault();
+        var product_id = $(this).closest('.product_data').find('.prod_id').val();
+        var product_qty = $(this).closest('.product_data').find('.qty-input').val();
+        var token = $('input[name=csrfmiddlewaretoken]').val();
+
+        $.ajax({
+          url: "/update_cart",
+          method: "POST",
+          dataType: "json",
+          data: {
+            'product_id': product_id,
+            'product_qty': product_qty,
+            'csrfmiddlewaretoken': token
+          },
+          success: function (response) {
+            // Handle successful response from server
+            $('.ored').text(response.total_price)
+            
+
+          },
+          error: function (xhr, status, error) {
+            // Handle error response from server
+          }
+        });
+      });
+
+      $(document).on('click', '.delete-cart-item', function (e) {
+        e.preventDefault();
+        var product_id = $(this).closest('.product_data').find('.prod_id').val();
+        var token = $('input[name=csrfmiddlewaretoken]').val();
+
+        $.ajax({
+          method: "POST",
+          url: "/delete_cart_item",
+          data: {
+            'product_id': product_id,
+            csrfmiddlewaretoken: token
+          },
+
+          success: function (response) {
+            $('.carddata').load(location.href + " .carddata");
+            $('.cart-count').text(response.count)
+          }
+        });
+      });
+
+    });
+
+    var myLink = document.querySelector('a[href="#"]');
+    myLink.addEventListener('click', function (e) {
+      e.preventDefault();
+    });
+  </script>
+
+  {% endblock content %}
