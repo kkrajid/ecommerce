@@ -219,7 +219,7 @@
 
               </center>
               {% else %}
-              <h4>Your cart is empty </h4>
+              <h4>Out of Stock </h4>
               {% endif %}
             </form>
           </div>
@@ -245,19 +245,20 @@
               <div class="row">
                 <div class="col-md-6">
                   <label for="First Name">First Name</label>
-                  <input type="text" required class="form-control" name="first_name" placeholder="Enter First Name">
+                  <input type="text" name="first_name" class="form-control" placeholder="Enter First Name" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required title="Please enter a valid name (letters, spaces, and hyphens only)">
+
                 </div>
                 <div class="col-md-6">
                   <label for="First Name">Last Name</label>
-                  <input type="text" required class="form-control" name="last_name" placeholder="Enter First Name">
+                  <input type="text" required class="form-control" name="last_name" placeholder="Enter Last Name" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$">
                 </div>
                 <div class="col-md-6 mt-2">
                   <label for="email">Email</label>
-                  <input type="text" required class="form-control" name="email" placeholder="Enter Email">
+                  <input type="email" required class="form-control" name="email" placeholder="Enter Email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$">
                 </div>
                 <div class="col-md-6 mt-2">
                   <label for="Phone">Phone</label>
-                  <input type="text" required class="form-control" name="phone" placeholder="Enter Phone">
+                  <input type="tel" required class="form-control" name="phone" placeholder="Enter Phone" pattern="^\(?([0-9]{3})\)?[-.]?([0-9]{3})[-.]?([0-9]{4})$">
                 </div>
                 <div class="col-md-12 mt-2">
                   <label for="Address">Address</label>
@@ -266,19 +267,20 @@
                 </div>
                 <div class="col-md-6 mt-2">
                   <label for="city">City</label>
-                  <input type="text" required class="form-control" name="city" placeholder="Enter City">
+                  <input type="text" required class="form-control" name="city" placeholder="Enter City" pattern="^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$">
                 </div>
                 <div class="col-md-6 mt-2">
                   <label for="State">State</label>
-                  <input type="text" required class="form-control" name="state" placeholder="Enter State">
+                  <input type="text" required class="form-control" name="state" placeholder="Enter State" pattern="^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$">
+
                 </div>
                 <div class="col-md-6 mt-2">
                   <label for="Country">Country</label>
-                  <input type="text" required class="form-control" name="country" placeholder="Enter Country">
+                  <input type="text" required class="form-control" name="country" placeholder="Enter Country" pattern="^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$">
                 </div>
                 <div class="col-md-6 mt-2">
                   <label for="Pin Code">Pin Code</label>
-                  <input type="text" required class="form-control" name="pincode" placeholder="Enter Pin Code">
+                  <input type="text" required class="form-control" name="pincode" placeholder="Enter Pin Code" pattern="^\d{6}$">
                 </div>
                 <button type="submit" class="btn btn-success w-100  mt-3 ">Submit</button>
 

@@ -8,6 +8,9 @@ urlpatterns = [
     
     path('add_to_cart', views.add_to_cart,name="add_to_cart" ),
     path('Cart_page', views.Cart_page,name="Cart_page" ),
+
+    # path('Cart_page_count', views.Cart_page_count,name="Cart_page_count" ),
+
     path('delete_cart_item', views.delete_cart_item,name="delete_cart_item" ),
     path('update_cart', views.update_cart,name="update_cart" ),
 
@@ -41,6 +44,7 @@ urlpatterns = [
 
 
     path('listing', views.listing,name="listing" ),
+    
 
     path('coupon_discount',views.coupon_discount,name="coupon_discount" ),
 

@@ -64,7 +64,9 @@ def ProductDetails(request,categoryName,productName):
     if (Category.objects.filter(status=0,name=categoryName,delete_category=False)):
         if(Products.objects.filter(name=productName,status=0,delete_product =False,Category__delete_category=False)):
             products =Products.objects.filter(name=productName,status=0,delete_product =False).first()
-            return render(request,'product/productDetails.html',{'products':products,'count':count})
+            cart = cartItems.objects.filter(user=request.user)
+            cart_ids = [item.products_id for item in cart]
+            return render(request,'product/productDetails.html',{'products':products,'count':count,'cart':cart_ids})
         else:
             messages.warning(request,"No Such Product Found")
             return redirect('CategoriesView')
@@ -189,8 +191,10 @@ def checkout(request):
     unique_addresses = Address.objects.filter(user=request.user,delete_address=False).order_by("-defaults")
     for item in cartItem:
         if item.product_qty > item.products.quantity:
-            cartItems.objects.delete(id=item.id)
+            cart = cartItems.objects.filter(id=item.id)
+            cart.delete()
 
+    cartItem = cartItems.objects.filter(user=request.user)
     for item in cartItem:
         total_price = total_price + item.products.selling_price*item.product_qty
 

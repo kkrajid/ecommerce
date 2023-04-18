@@ -466,7 +466,7 @@
          </div>
          <div class="col-md-6">
             <div class="_product-detail-content">
-               <p class="_p-name">{{products}} </p>
+               <p class="_p-name">{{products.name}} </p>
                <div class="_p-price-box">
                 {% csrf_token %}
                 <input type="hidden" value="{{products.id}}" class="prod_id">
@@ -490,12 +490,15 @@
                      <ul class="spe_ul"></ul>
                      <div class="_p-qty-and-cart">
                         <div class="_p-add-cart">
-                           <button class="btn-theme btn buy-btn" tabindex="0">
-                           <i class="fa fa-shopping-cart"></i> Buy Now
-                           </button>
-                           <button class="btn-theme btn btn-success addToCartBtn" tabindex="0">
-                           <i class="fa fa-shopping-cart"></i> Add to Cart
-                           </button>
+                          {% if products.id in cart %}
+                            <a class="btn-theme btn btn-success " href="{% url 'Cart_page' %}" tabindex="0">
+                              <i class="fa fa-shopping-cart"></i> Go to Cart
+                            </a>
+                          {% else %}
+                            <button class="btn-theme btn btn-success addToCartBtn" tabindex="0">
+                              <i class="fa fa-shopping-cart"></i> Add to Cart
+                            </button>
+                          {% endif %}
                            <input type="hidden" name="pid" value="18" />
                            <input type="hidden" name="price" value="850" />
                            <input type="hidden" name="url" value="" />    
@@ -508,7 +511,50 @@
       </div>
    </div>
 </section>
+<!-- <main class="container my-4">
+  <h3 class="my-4 border-bottom pb-1">Product Details</h3>
+  <div class="row">
+    <div class="col-md-4">
+      <img id="zoom_01" data-zoom-image="{{products.product_image.url}}"src="{{products.product_image.url}}" alt="" class="card-img-top" >
+    </div>
+    <div class="col-md-8">
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid hic qui autem neque nesciunt cumque maiores, facere est cupiditate. Eligendi nisi autem laboriosam animi minima vel quo eum a porro.</p>
+      <hr/>
+      <table class="table table-bordered">
+        <tr>
+          <th>Price</th>
+          <th>Rs.299</th>
 
+        </tr>
+        <tr>
+          <th>Colors</th>
+          <td>
+            <button class="btn btn-danger btn-lg"></button>
+            <button class="btn btn-info btn-lg"></button>
+            <button class="btn btn-success btn-lg"></button>
+            <button class="btn btn-primary btn-lg"></button>
+            <button class="btn btn-dark btn-lg"></button>
+          </td>
+        </tr>
+        <tr>
+          <th>Sizes</th>
+          <td>
+            <button class="btn btn-outline-secondary btn-sm">900 ml</button>
+            <button class="btn btn-outline-secondary btn-sm">500 ml</button>
+          </td>
+        </tr>
+      </table>
+      <hr/>
+      <div class="input-group my-3" style="width: 30%;">
+        <input type="number" class="form-control"/>
+        <div class="input-group-append">
+          <button class="btn btn-primary btn-sm" type="button" id="button-addon"><i class="fa fa-shopping-cart"></i>Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main> -->
 <script>
 
   $(document).ready(function() {
@@ -517,7 +563,7 @@
       var dec_value = $(this).closest('.input-group').find('.qty-input').val();
       var value = parseInt(dec_value, 10);
       value = isNaN(value) ? 0 : value;
-      if (value < {{products.quantity}}) {
+      if (value < 10) {
         value++;
         $(this).closest('.input-group').find('.qty-input').val(value);
       }
@@ -685,6 +731,10 @@ $(document).ready(function () {
         }
     });
 
+</script>
+<script src="https://cdn.jsdelivr.net/gh/igorlino/elevatezoom-plus@1.2.3/src/jquery.ez-plus.js"></script>
+<script>
+  $('#zoom_01').ezPlus();
 </script>
 
 {% endblock content %}

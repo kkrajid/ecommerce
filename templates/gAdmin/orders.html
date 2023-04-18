@@ -258,7 +258,7 @@
               To : <input type="date" name="todate" value="{{todate}}" class="form-control"
                 style="width: 20%; margin-right: 7%; margin-left: 5%; ">
               <input type="submit" class="btn btn-primary">
-              <a class="btn btn-warning" style="margin-left: 10%;" href="{% url 'order_pdf' %}?fromdate={{fromdate}}&todate={{todate}}">PDF</a>
+              {% comment %} <a class="btn btn-warning" style="margin-left: 10%;" href="{% url 'order_pdf' %}?fromdate={{fromdate}}&todate={{todate}}">PDF</a> {% endcomment %}
             </div>
           </form>
 
@@ -310,9 +310,10 @@
   <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
   <Script>
     let table = new DataTable('#myTable', {
-      "lengthMenu": [[4, 6, -1], [4, 6]]
-      
+      "lengthMenu": [[4, 6, -1], [4, 6]],
+      "order": [[0, "desc"]]
     });
+    
   </Script>
 </body>
 

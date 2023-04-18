@@ -96,9 +96,9 @@
                             <h6 class="border p-2">Payment Mode : {{order.payment_mode}}</h6>
                             <h6 class="border p-2">Tracking No. : {{order.tracking_no}}</h6>
                             {% if order.status != "Cancelled" and order.status != "Deliverd" and order.status != "Return" and order.status != "Returned" %}
-                            <a href="{% url 'cancel_order' order.id %}" class="btn btn-white border border-secondary float-end"><i class="icofont-close-line mr-2 text-danger mb-0"></i> Cancel</a>
+                            <a href="{% url 'cancel_order' order.id %}" class="btn btn-white border border-secondary float-end" onclick="return confirmCancel(event)"><i class="icofont-close-line mr-2 text-danger mb-0"></i> Cancel</a>
                             {% elif order.status == 'Deliverd' %}
-                            <a href="{% url 'returnorder' order.id %}" class="btn btn-danger border border-secondary float-end">Return</a>
+                            <a href="{% url 'returnorder' order.id %}" class="btn btn-danger border border-secondary float-end" onclick="return confirmReturn(event)">Return</a>
                             {% else %}
                             <a href="{% url 'Home' %}" class="btn btn-primary border border-secondary float-end">Continue To Shop</a>
                             {% endif %}
@@ -181,6 +181,56 @@
       });
       
     });
+
+
+
+    function confirmReturn(event) {
+      // Prevent the default behavior of the button
+      event.preventDefault();
+      // Display a SweetAlert confirmation dialog
+      swal({
+        title: "Are you sure?",
+        text: "Do you want to return this order?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((confirm) => {
+        if (confirm) {
+          // User clicked confirm button
+          console.log("User confirmed return");
+          // Navigate to the URL specified in the href attribute
+          window.location.href = event.target.href;
+        } else {
+          // User clicked cancel button
+          console.log("User canceled return");
+        }
+      });
+    }
+    function confirmCancel(event) {
+      // Prevent the default behavior of the button
+      event.preventDefault();
+      // Display a SweetAlert confirmation dialog
+      swal({
+        title: "Are you sure?",
+        text: "Do you want to cancel this order?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((confirm) => {
+        if (confirm) {
+          // User clicked confirm button
+          console.log("User confirmed return");
+          // Navigate to the URL specified in the href attribute
+          window.location.href = event.target.href;
+        } else {
+          // User clicked cancel button
+          console.log("User canceled return");
+        }
+      });
+    }
+    
     </script>
     
 

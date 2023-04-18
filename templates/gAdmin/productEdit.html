@@ -277,14 +277,15 @@ table th {
 
 
     <label for="name">Ouantity:</label>
-    <input type="text" id="name" name="quantity" value="{{ob.quantity}}">
+    <input type="number" name="quantity" id="name" value="{{ob.quantity}}" min="0" max="100" pattern="\d+" oninput="this.value = Math.abs(this.value)">
+
 
     <label for="name">Original Price:</label>
-    <input type="text" id="name" name="original_price" value="{{ob.original_price}}">
+    <input type="number"name="original_price" id="name" value="{{ob.original_price}}" min="0" max="" pattern="\d+" oninput="this.value = Math.abs(this.value)">
 
 
     <label for="name">Selling Price:</label>
-    <input type="text" id="name" name="selling_price" value="{{ob.selling_price}}">
+    <input type="number" name="selling_price" id="name" value="{{ob.selling_price}}" min="0" max="" pattern="\d+" oninput="this.value = Math.abs(this.value)">
 
     <label for="category-description">Category Description:</label>
     <textarea id="category-description" name="description" value="{{ob.description}}"></textarea>
